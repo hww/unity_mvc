@@ -1,7 +1,6 @@
 # Using Model-View-Controller pattern with Unity 3D
 
-
-
+This repository contains a simple Unity demo project with MVC architecture.
 
 [The Guerrilla Guide to Game Code](https://d1z4o56rleaq4j.cloudfront.net/downloads/assets/Rouwe05_GuerrillaGuideToGameCode.pdf?mtime=20160418102916)
 
