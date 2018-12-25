@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Plugins.VARP.MVC;
 
 namespace VARP.MVC
 {
@@ -18,7 +19,7 @@ namespace VARP.MVC
                 var entity = EntitiesCollection[i];
                 if (entity.Despawn)
                 {
-                    RepresentationManager.OnEntityRemoved(entity);
+                    RepresentationManager.OnEvent(EventName.EntityDisabled, entity);
                 }
                 else
                 {
@@ -41,7 +42,7 @@ namespace VARP.MVC
                 EntitiesCollection.Add(entity);
                 Count = EntitiesCollection.Count;
             }
-            RepresentationManager.OnEntityAdded(entity);
+            RepresentationManager.OnEvent(EventName.EntityEnabled, entity);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Plugins.VARP.MVC;
+using UnityEngine.Analytics;
 
 namespace VARP.MVC
 {
@@ -43,12 +45,7 @@ namespace VARP.MVC
             }
         }
 
-        public static void OnEntityRemoved(Entity entity)
-        {
-            
-        }
-        
-        public static void OnEntityAdded(Entity entity)
+        public static void OnEvent(EventName evt, object arg1 = null, object arg2 = null)
         {
             
         }

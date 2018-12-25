@@ -65,6 +65,7 @@
     <Compile Include="Assets\Plugins\VARP\MVC\EntityController.cs" />
     <Compile Include="Assets\Plugins\VARP\MVC\EntityRepresentation.cs" />
     <Compile Include="Assets\Plugins\VARP\MVC\EntryManager.cs" />
+    <Compile Include="Assets\Plugins\VARP\MVC\EventName.cs" />
     <Compile Include="Assets\Plugins\VARP\MVC\RepresentationManager.cs" />
     <Compile Include="Assets\Plugins\VARP\MVC\TransformData.cs" />
     <Reference Include="UnityEditor.StandardEvents">

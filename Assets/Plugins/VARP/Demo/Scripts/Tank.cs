@@ -62,6 +62,7 @@ namespace VARP.MVC
             // Apply this rotation to the rigidbody's rotation.
             rigidbody.MoveRotation (rigidbody.rotation * turnRotation);
             
+            // Get acceleration from controller
             var acceleration = Controler.GetAcceleration();
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
             Vector3 movement = transform.forward * acceleration * speed * Time.fixedDeltaTime;

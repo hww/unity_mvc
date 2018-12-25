@@ -27,5 +27,13 @@ namespace VARP.MVC
         /// </summary>
         public abstract void OnUpdate(float RealTime);
         
+        /// <summary>
+        /// Ususaly, Entity Representation pooling the state of Entity to update own state.
+        /// For some special cases would be prefferable use event method.
+        /// </summary>
+        public virtual void OnEntityEvent(int id, object arg1 = null, object arg2 = null)
+        {
+            // override it in your representaion
+        }
     }
 }
