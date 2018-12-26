@@ -10,9 +10,9 @@ namespace VARP.MVC
         public bool Changed;
         /// <summary>To terminate this object set true</summary>
         public bool MustInterpolate;
-
+        /// <summary>Last fixed frequency time</summary>
         public float LastChangedTime;
-        
+        /// <summary>Reference to the entity can be used for pooling state</summary>
         public Entity Entity;
         
         /// <summary>        

@@ -22,7 +22,7 @@ namespace VARP.MVC
         public override void PreUpdate(float FixedFrequencyTime)
         {
             // This flag indicates of for the next 1/15th second the EntityRepresentation needs to interpolate
-            MustInterpolate = Entity.Changed;
+            MustInterpolate = Entity.Changed != Entity.EChange.None;
             // Note the current time
             LastChangedTime = FixedFrequencyTime;
         } 
@@ -39,14 +39,11 @@ namespace VARP.MVC
                 var factor = Mathf.Min((RealTime - LastChangedTime) / Time.fixedDeltaTime, 1f);
                 // Use spherical linear interpolation for the world matrix
                 Entity.InterpolateSLERP(transform, factor);
-                // Use linear blending for the array of bone matrices
-                // TODO BoneMatrices = (1f – factor) *Entity->PreviousBoneMatrices + factor * Entity.CurrentBoneMatrices;
             }
             else
             {
                 // We’re not interpolating so we can simply use the current Entity statie
                 Entity.InterpolateApply(transform);
-                // TODO BoneMatrices = Entity.CurrentBoneMatrices;
             }
         } 
 

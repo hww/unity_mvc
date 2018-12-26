@@ -40,7 +40,7 @@ namespace VARP.MVC
             // Notify our EntityRepresentation
             EntityRepresentation.PreUpdate(FixedFrequencyTime);
             // Reset changed flag for next frame
-            Changed = false;
+            Changed = EChange.None;
         }
 
         public float speed = 3;
@@ -69,10 +69,9 @@ namespace VARP.MVC
             // Apply this movement to the rigidbody's position.
             rigidbody.MovePosition(rigidbody.position + movement);
 
-            CurrentWorldMatrixChanged = true;
             // The EnityRepresentation needs to know if anything changed this frame
             // that requires interpolation
-            Changed = CurrentWorldMatrixChanged || CurrentBoneMatricesChanged;
+            Changed |= EChange.CurrentWorldMatrixChanged;
         } 
     }
 }

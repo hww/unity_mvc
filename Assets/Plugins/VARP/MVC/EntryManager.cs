@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Plugins.VARP.MVC;
+using UnityEngine.Experimental;
 
 namespace VARP.MVC
 {
     /// <summary>
     /// Update all models with physics speed
     /// </summary>
-    public class EntryManager
+    public class EntryManager 
     {
         public static readonly List<Entity> EntitiesCollection = new List<Entity>(100);
         public static int Count;
