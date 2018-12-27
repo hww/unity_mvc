@@ -31,9 +31,10 @@ namespace VARP.MVC
             return new Vector3(x,y,0);
         }
 
-        public override bool Fire()
+        public override Entity GetUseObject ()
         {
-            return Input.GetKeyDown(KeyCode.Space);
+            // TODO return current weapon entity when Input.GetKeyDown(KeyCode.Space) 
+            return null;
         }
     }
 }

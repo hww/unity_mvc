@@ -12,10 +12,10 @@ namespace VARP.MVC
         }
         /// <summary>Interpolate transform when this flag is true</summary>
         public EChange Changed;
-        /// <summary>Pointer to the representation</summary>
-        public EntityRepresentation EntityRepresentation;
         /// <summary>To terminate this object set true</summary>
         public bool Despawn;
+        /// <summary>Pointer to the representation</summary>
+        public EntityRepresentation EntityRepresentation;
         /// <summary>Transform data states</summary>
         protected TransformData[] lastTransforms;
         /// <summary>Transfrom data index</summary>

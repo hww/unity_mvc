@@ -6,22 +6,26 @@ namespace VARP.MVC
     {
         public override float GetAcceleration()
         {
+            // TODO
             return 0;
         }
 
         public override float GetSteerDirection()
         {
+            // TODO
             return 0;  
         }
 
         public override Vector3 GetAimTarget()
         {
+            // TODO
             return new Vector3(0,0,0);  
         }
 
-        public override bool Fire()
+        public override Entity GetUseObject()
         {
-            return false;
+            // TODO return current weapon entity when AI decide it
+            return null;
         }
     }
 }
