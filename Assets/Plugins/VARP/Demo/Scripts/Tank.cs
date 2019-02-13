@@ -35,8 +35,6 @@ namespace VARP.MVC
                 transform.localPosition,
                 transform.localRotation,
                 transform.localScale);
-            // Store the previous array of bone matrices
-            // TODO PreviousBoneMatrices = CurrentBoneMatrices
             // Notify our EntityRepresentation
             EntityRepresentation.PreUpdate(FixedFrequencyTime);
             // Reset changed flag for next frame
@@ -53,7 +51,6 @@ namespace VARP.MVC
         public override void OnUpdate(float FixedFrequencyTime)
         {
             // Update game state (animations, position, etc.)
-
             var direction = Controler.GetSteerDirection();
             // Determine the number of degrees to be turned based on the input, speed and time between frames.
             var turn = direction * turnSpeed * Time.fixedDeltaTime;
@@ -65,7 +62,7 @@ namespace VARP.MVC
             // Get acceleration from controller
             var acceleration = Controler.GetAcceleration();
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-            Vector3 movement = transform.forward * acceleration * speed * Time.fixedDeltaTime;
+            var movement = transform.forward * acceleration * speed * Time.fixedDeltaTime;
             // Apply this movement to the rigidbody's position.
             rigidbody.MovePosition(rigidbody.position + movement);
 

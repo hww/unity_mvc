@@ -35,7 +35,7 @@ namespace VARP.MVC
         {
             if (MustInterpolate)
             {
-                // Calculate the interpolation fractor, the factor will be in the range [0, 1]
+                // Calculate the interpolation factor, the factor will be in the range [0, 1]
                 var factor = Mathf.Min((RealTime - LastChangedTime) / Time.fixedDeltaTime, 1f);
                 // Use spherical linear interpolation for the world matrix
                 Entity.InterpolateSLERP(transform, factor);
