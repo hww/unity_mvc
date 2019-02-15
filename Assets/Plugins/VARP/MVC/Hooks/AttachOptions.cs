@@ -1,6 +1,6 @@
 using System;
 
-namespace VARP.MVC.Connectors
+namespace VARP.MVC.Hooks
 {
     /// <summary>
     ///     Options of attaching methods

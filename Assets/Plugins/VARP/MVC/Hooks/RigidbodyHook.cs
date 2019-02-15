@@ -26,7 +26,7 @@ using UnityEngine;
 using VARP.FSM;
 using VARP.MVC;
 
-namespace VARP.MVC.Connectors
+namespace VARP.MVC.Hooks
 {
 	public class RigidbodyHook : AttachHook
 	{

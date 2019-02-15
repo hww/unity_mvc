@@ -24,7 +24,7 @@
 
 using UnityEngine;
 
-namespace VARP.MVC.Connectors
+namespace VARP.MVC.Hooks
 {
     /// <summary>
     ///     AttachHook can be connected with AttachHook. Like a parent child
