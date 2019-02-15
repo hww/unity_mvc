@@ -1,6 +1,14 @@
-# Using Model-View-Controller pattern with Unity 3D
+# Using Model-View-Controller pattern with Unity 3D (V2)
 
-This repository contains a simple Unity demo project with MVC architecture. The archtecture used in this project based on the articles [[1](https://d1z4o56rleaq4j.cloudfront.net/downloads/assets/Rouwe05_GuerrillaGuideToGameCode.pdf?mtime=20160418102916)] and [[2](http://www.kinematicsoup.com/news/2016/8/9/rrypp5tkubynjwxhxjzd42s3o034o8)]
+Difference from version one:
+
+  - Simplified and improved API
+  - Added dependency orders buckets
+  - Added [AttachHook and AttachTarget](https://github.com/hww/unity_mvc/tree/v2/Assets/Plugins/VARP/MVC/Connectors) to make parent child connections 
+  - Has additional balls scene
+  - Now it requires [NaughtyAttributes](https://github.com/dbrizov/NaughtyAttributes)
+
+This repository contains a simple Unity demo project with MVC architecture. The architecture used in this project based on the articles [[1](https://d1z4o56rleaq4j.cloudfront.net/downloads/assets/Rouwe05_GuerrillaGuideToGameCode.pdf?mtime=20160418102916)] and [[2](http://www.kinematicsoup.com/news/2016/8/9/rrypp5tkubynjwxhxjzd42s3o034o8)]
 
 **Figure 1** - Framework diagram
 ![Class Diagram](doc/unity_mvc_diagram.png)
