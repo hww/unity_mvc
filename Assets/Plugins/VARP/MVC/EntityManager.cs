@@ -27,53 +27,53 @@ using System.Text;
 namespace VARP.MVC
 {
     /// <summary>
-    ///     Update all representation with rendering speed.
+    ///     Update all models with physics speed
     /// </summary>
-    public static class RepresentationManager
+    public static class EntityManager 
     {
-        /// <summary>
-        ///     There are all buckets of representations
-        /// </summary>
-        private static readonly Bucket<Representation>[] Buckets =
-            new Bucket<Representation>[(int) BucketTag.BucketsCount];
+        public static readonly Bucket<Entity>[] Buckets = new Bucket<Entity>[(int)BucketTag.BucketsCount];
 
-        static RepresentationManager()
+        static EntityManager()
         {
-            for (var i = 0; i < (int) BucketTag.BucketsCount; i++)
-                Buckets[i] = new Bucket<Representation>();
+            for (var i=0; i<(int)BucketTag.BucketsCount; i++)
+                Buckets[i] = new Bucket<Entity>();
         }
 
         /// <summary>
-        ///     Function called by the Representation manager to update the state
-        ///     of the EntityRepresentation
+        ///     Update single bucket
         /// </summary>
-        public static void Update(float realTime, BucketTag bucketTag)
+        /// <param name="fixedFrequencyTime"></param>
+        /// <param name="bucketTag"></param>
+        public static void Update(float fixedFrequencyTime, BucketTag bucketTag)
         {
             var bucket = Buckets[(int) bucketTag];
             var i = 0;
             while (i < bucket.Count)
             {
-                var entityRepresentation = bucket.EntitiesCollection[i];
-                if (entityRepresentation.spawnState == SpawnState.DeSpawn)
+                var entity = bucket.EntitiesCollection[i];
+                if (entity.spawnState == SpawnState.DeSpawn)
                 {
+                    RepresentationManager.OnEvent(EventName.EntityDisabled, entity);
                     bucket.RemoveAt(i);
                 }
                 else
                 {
-                    entityRepresentation.OnUpdate(realTime);
+                    entity.PreUpdate(fixedFrequencyTime);
+                    entity.OnUpdate(fixedFrequencyTime);
                     i++;
                 }
             }
         }
-
+        
         /// <summary>
-        ///     Add new representation to bucket
+        ///     Add single entity to the list
         /// </summary>
-        /// <param name="representation">Representation</param>
-        /// <param name="bucketTag">Bucket tag</param>
-        public static void AddRepresentation(Representation representation, BucketTag bucketTag)
+        /// <param name="entity"></param>
+        /// <param name="bucketTag"></param>
+        public static void AddEntity(Entity entity, BucketTag bucketTag)
         {
-            Buckets[(int) bucketTag].AddEntity(representation);
+            Buckets[(int)bucketTag].AddEntity(entity);
+            RepresentationManager.OnEvent(EventName.EntityEnabled, entity);
         }
 
         /// <summary>
@@ -82,21 +82,11 @@ namespace VARP.MVC
         /// <param name="bucketTag"></param>
         public static void Clear(BucketTag bucketTag)
         {
-            Buckets[(int) bucketTag].Clear();
+            Buckets[(int)bucketTag].Clear();
         }
 
         /// <summary>
-        ///     Override this method to deliver messages for representation
-        /// </summary>
-        /// <param name="evt"></param>
-        /// <param name="arg1"></param>
-        /// <param name="arg2"></param>
-        public static void OnEvent(EventName evt, object arg1 = null, object arg2 = null)
-        {
-        }
-
-        /// <summary>
-        ///     Make report of all buckets
+        ///     Make string with report about all buckets
         /// </summary>
         /// <returns></returns>
         public static string InspectAll()
@@ -104,10 +94,9 @@ namespace VARP.MVC
             var sb = new StringBuilder();
             for (var i = 0; i < Buckets.Length; i++)
             {
-                sb.AppendLine($"Bucket: {(BucketTag) i}");
+                sb.AppendLine($"Bucket: {((BucketTag)i)}");
                 sb.AppendLine(Buckets[i].InspectAll());
             }
-
             return sb.ToString();
         }
     }

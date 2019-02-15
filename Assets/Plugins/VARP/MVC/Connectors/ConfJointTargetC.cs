@@ -22,17 +22,32 @@
 // SOFTWARE.
 // =============================================================================
 
-namespace VARP.MVC
+using UnityEngine;
+
+namespace VARP.MVC.Connectors
 {
-    
     /// <summary>
-    ///     Abstract input interface for all controllers
-    ///     The role of the Controller is to specify what the Entity should do. The Controller can’t
-    ///     directly change the state of the Entity. Every update the Controller is polled by the Entity
-    ///     and the Entity tries to follow the Controllers instructions. 
+    /// Almost useless ConfJointTarget component 
     /// </summary>
-    public class EntityController
+    [RequireComponent(typeof(ConfigurableJoint))]
+    public class ConfJointTargetC : Entity
     {
-        // TODO Abstract input
+        public ConfJointTarget target;
+
+        private void Awake()
+        {
+            target = new ConfJointTarget(this);
+            target.Define(GetComponent<ConfigurableJoint>(), null);
+        }
+
+        public override void PreUpdate(float fixedFrequencyTime)
+        {
+            // not needed!
+        }
+
+        public override void OnUpdate(float fixedFrequencyTime)
+        {
+            // not needed!
+        }
     }
 }

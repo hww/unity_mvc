@@ -2,7 +2,7 @@
 
 namespace VARP.MVC
 {
-    public class TankRepresentation : Representation
+    public class BallRepresentation : Representation
     {
         private void OnEnable()
         {
@@ -19,12 +19,12 @@ namespace VARP.MVC
         /// Function called by Entity.PreUpdate to store the previous state
         /// of the EntityRepresentation for interpolation
         /// </summary>
-        public override void PreUpdate(float FixedFrequencyTime)
+        public override void PreUpdate(float fixedFrequencyTime)
         {
             // This flag indicates of for the next 1/15th second the EntityRepresentation needs to interpolate
             mustInterpolate = entity.changed;
             // Note the current time
-            lastChangedTime = FixedFrequencyTime;
+            lastChangedTime = fixedFrequencyTime;
         } 
         
         /// <summary>       
@@ -42,7 +42,7 @@ namespace VARP.MVC
             }
             else
             {
-                // We’re not interpolating so we can simply use the current Entity state
+                // We’re not interpolating so we can simply use the current Entity statie
                 entity.InterpolateApply(transform);
             }
         } 

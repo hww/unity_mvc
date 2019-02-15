@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/TankScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Plugins/VARP/Demo/tanks_scene.unity
+    path: Assets/Plugins/VARP/Demo/Scenes/tanks_scene.unity
     guid: 0778c7336c5753444a6bbc9b8f368672
   m_configObjects: {}

@@ -6,18 +6,14 @@ namespace VARP.MVC
 {
 	public class TankGame : MonoBehaviour {
 
-		void Start () {
-		
-		}
-
 		private void FixedUpdate()
 		{
-			EntryManager.Update(Time.fixedTime);
+			EntityManager.Update(Time.fixedTime, BucketTag.Defaults);
 		}
 
 		void Update () 
 		{
-			RepresentationManager.Update(Time.time);
+			RepresentationManager.Update(Time.time, BucketTag.Defaults);
 		}
 	}
 }
