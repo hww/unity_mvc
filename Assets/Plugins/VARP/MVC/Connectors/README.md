@@ -5,7 +5,7 @@ Because model and representation update speed different, it requires more comple
 - Model transform (or rigidbody, joint)
 - Representation transform
 
-When hooks connected, each object has acces to model transform or to representation transform.
+When hooks connected, each object has acces to model transform or to representation transform of other hook.
 
 ![AttachHook Diagram](docs/AttachHook.png)
 
