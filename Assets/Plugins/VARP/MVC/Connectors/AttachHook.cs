@@ -27,7 +27,7 @@ using UnityEngine;
 namespace VARP.MVC.Connectors
 {
     /// <summary>
-    ///     AttachHook can be connected with AttachTarget. Like a parent child
+    ///     AttachHook can be connected with AttachHook. Like a parent child
     ///     relations but without using Unity transform hierarchy
     /// </summary>
     public abstract class AttachHook
@@ -39,7 +39,7 @@ namespace VARP.MVC.Connectors
         /// <summary>Return TRUE if connected</summary>
         public bool isConnected;
         /// <summary>Connected target</summary>
-        public AttachTarget target; 
+        public AttachHook connectedHook; 
         /// <summary>Hooks representation's transform</summary>
         public Transform transform; //< representation
 
@@ -64,7 +64,7 @@ namespace VARP.MVC.Connectors
         /// <param name="target"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public abstract void Connect(AttachTarget target, AttachOptions options = AttachOptions.Default);
+        public abstract void Connect(AttachHook target, AttachOptions options = AttachOptions.Default);
 
         /// <summary>
         ///     Disconnect
@@ -78,11 +78,28 @@ namespace VARP.MVC.Connectors
         /// <summary>
         ///     OnConnect event, same as Connect but do not call attach target
         /// </summary>
-        public abstract void OnConnect(AttachTarget target, AttachOptions options = AttachOptions.Default);
+        public abstract void OnConnect(AttachHook target, AttachOptions options = AttachOptions.Default);
 
         /// <summary>
         ///     OnDisconnect event, same as Disconnect but do not call attach target
         /// </summary>
         public abstract void OnDisconnect();
+        
+        // =============================================================================================================
+        // Access to position rotation
+        // =============================================================================================================
+
+        public abstract Vector3 GetModelPosition();
+        public abstract Quaternion GetModelRotation();
+
+        public Vector3 GetRepPosition()
+        {
+            return transform.position;
+        }
+
+        public Quaternion GetRepRotation()
+        {
+            return transform.rotation;
+        }
     }
 }

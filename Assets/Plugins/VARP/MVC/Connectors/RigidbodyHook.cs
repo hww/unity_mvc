@@ -58,7 +58,7 @@ namespace VARP.MVC.Connectors
 		// Connect or disconnect
 		// =============================================================================================================
         
-		public override void Connect(AttachTarget target, AttachOptions options = AttachOptions.Default)
+		public override void Connect(AttachHook target, AttachOptions options = AttachOptions.Default)
 		{
 			Debug.Assert(target != null);
 			Disconnect();
@@ -68,9 +68,9 @@ namespace VARP.MVC.Connectors
 		
 		public override void Disconnect()
 		{
-			if (target == null)
+			if (connectedHook == null)
 				return;
-			target.OnDisconnect();
+			connectedHook.OnDisconnect();
 			OnDisconnect();
 		}
 
@@ -78,41 +78,55 @@ namespace VARP.MVC.Connectors
 		// Events when connection disconnection happens
 		// =============================================================================================================
 		
-		public override void OnConnect(AttachTarget target, AttachOptions options = AttachOptions.Default)
+		public override void OnConnect(AttachHook target, AttachOptions options = AttachOptions.Default)
 		{
-			if (target is RigidbodyTarget)
+			if (target is RigidbodyHook)
 			{
-				OnConnectRigidbody(target as RigidbodyTarget, options);
+				OnConnectRigidbody(target as RigidbodyHook, options);
 				return;
 			}
-			if (target is ConfJointTarget)
+			if (target is ConfJointHook)
 			{
-				OnConnectConfJoint(target as ConfJointTarget, options);
+				OnConnectConfJoint(target as ConfJointHook, options);
 				return;
 			}
 			Debug.LogError($"Can't connect {this} to {target}");
 		}
 
-		private void OnConnectRigidbody(RigidbodyTarget target, AttachOptions options = AttachOptions.Default)
+		private void OnConnectRigidbody(RigidbodyHook target, AttachOptions options = AttachOptions.Default)
 		{
-			this.target = target;
+			this.connectedHook = target;
 			this.isConnected = true;
 			entity.OnEvent(EventTag.OnAttachHookConnected, this, target);
 		}
 		
-		private void OnConnectConfJoint(ConfJointTarget target, AttachOptions options = AttachOptions.Default)
+		private void OnConnectConfJoint(ConfJointHook target, AttachOptions options = AttachOptions.Default)
 		{
-			this.target = target;
+			this.connectedHook = target;
 			this.isConnected = true;
 			entity.OnEvent(EventTag.OnAttachHookConnected, this, target);
 		}
 		
 		public override void OnDisconnect()
 		{
-			target = null;
+			connectedHook = null;
 			this.isConnected = false;
 			entity.OnEvent(EventTag.OnAttachHookDisconnected, this);
 		}
+		
+		// =============================================================================================================
+		// Connect or disconnect
+		// =============================================================================================================
 
+		/// <summary>Get joint's position</summary>
+		public override Vector3 GetModelPosition()
+		{
+			return rigidbody.transform.position;
+		}
+		/// <summary>Get joint's rotation</summary>
+		public override Quaternion GetModelRotation()
+		{
+			return rigidbody.transform.rotation;
+		}
 	}
 }

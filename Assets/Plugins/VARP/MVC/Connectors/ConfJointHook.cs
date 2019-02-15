@@ -23,6 +23,7 @@
 // =============================================================================
 
 using UnityEngine;
+using VARP.FSM;
 using VARP.MVC;
 
 namespace VARP.MVC.Connectors
@@ -55,24 +56,35 @@ namespace VARP.MVC.Connectors
                 this.transform = transform;    
             }
         }
-        
+
+        /// <summary>Get joint's position</summary>
+        public override Vector3 GetModelPosition()
+        {
+            return joint.transform.position;
+        }
+        /// <summary>Get joint's rotation</summary>
+        public override Quaternion GetModelRotation()
+        {
+            return joint.transform.rotation;
+        }
+
         // =============================================================================================================
         // Connect or disconnect
         // =============================================================================================================
         
-        public override void Connect(AttachTarget target, AttachOptions options = AttachOptions.Default)
+        public override void Connect(AttachHook target, AttachOptions options = AttachOptions.Default)
         {
             Debug.Assert(target != null);
             Disconnect();
             OnConnect(target, options);
             target.OnConnect(this, options);
         }
-        
+
         public override void Disconnect()
         {
-            if (target==null)
+            if (connectedHook==null)
                 return;
-            target.OnDisconnect();
+            connectedHook.OnDisconnect();
             OnDisconnect();
         }
         
@@ -80,14 +92,17 @@ namespace VARP.MVC.Connectors
         // Events when connection disconnection happens
         // =============================================================================================================
         
-        public override void OnConnect(AttachTarget target, AttachOptions options = AttachOptions.Default)
+        public override void OnConnect(AttachHook target, AttachOptions options = AttachOptions.Default)
         {
-            if (target is RigidbodyTarget)
-                OnConnect(target as RigidbodyTarget, options);
+            if (target is RigidbodyHook)
+            {
+                OnConnect(target as RigidbodyHook, options);
+                return;
+            }
             Debug.LogError($"Can't connect {this} to {target}");
         }
 
-        private void OnConnect(RigidbodyTarget target, AttachOptions options = AttachOptions.Default)
+        private void OnConnect(RigidbodyHook target, AttachOptions options = AttachOptions.Default)
         {
             if (options.HasFlag(AttachOptions.Move))
                 joint.transform.position = target.rigidbody.position;
@@ -96,14 +111,14 @@ namespace VARP.MVC.Connectors
             joint.connectedBody = target.rigidbody;
             joint.massScale = target.rigidbody.mass / joint.GetComponent<Rigidbody>().mass;
             joint.connectedMassScale = 1f;
-            this.target = target;
+            this.connectedHook = target;
             this.isConnected = true;
             entity.OnEvent(EventTag.OnAttachHookConnected, this, target);
         }
         
         public override void OnDisconnect()
         {
-            target = null;
+            connectedHook = null;
             joint.connectedBody = null;
             this.isConnected = false;
             entity.OnEvent(EventTag.OnAttachHookDisconnected, this);
